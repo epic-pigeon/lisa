@@ -1,0 +1,16 @@
+class congruence_equality {
+	loop() {
+	    def x = 0;
+	    def y = 2;
+	    def a = y;
+
+	    while (x < 40 && a == y) {
+	        x = x + 2;
+	        if (x < 5) y = y + 18;
+	        if (x > 8) y = y - 30;
+	        a = y;
+	    }
+	    def z = y % 6;
+    }
+
+}

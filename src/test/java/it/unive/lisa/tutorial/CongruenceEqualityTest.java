@@ -18,7 +18,7 @@ public class CongruenceEqualityTest {
     @Test
     public void testCongruence() throws ParsingException, AnalysisException, SemanticException {
         // we parse the program to get the CFG representation of the code in it
-        Program program = IMPFrontend.processFile("inputs/equality.imp");
+        Program program = IMPFrontend.processFile("inputs/congruence_equality.imp");
 
         // we build a new configuration for the analysis
         LiSAConfiguration conf = new DefaultConfiguration();
