@@ -8,6 +8,7 @@ class congruence {
 	        if (x < 5) y = y + 18;
 	        if (x > 8) y = y - 30;
 	    }
+	    def z = y % 6;
     }
 
 }

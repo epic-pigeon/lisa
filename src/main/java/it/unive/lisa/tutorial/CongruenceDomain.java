@@ -9,10 +9,7 @@ import it.unive.lisa.program.cfg.ProgramPoint;
 import it.unive.lisa.symbolic.value.Constant;
 import it.unive.lisa.symbolic.value.Identifier;
 import it.unive.lisa.symbolic.value.ValueExpression;
-import it.unive.lisa.symbolic.value.operator.AdditionOperator;
-import it.unive.lisa.symbolic.value.operator.DivisionOperator;
-import it.unive.lisa.symbolic.value.operator.MultiplicationOperator;
-import it.unive.lisa.symbolic.value.operator.SubtractionOperator;
+import it.unive.lisa.symbolic.value.operator.*;
 import it.unive.lisa.symbolic.value.operator.binary.*;
 import it.unive.lisa.symbolic.value.operator.unary.NumericNegation;
 import it.unive.lisa.symbolic.value.operator.unary.UnaryOperator;
@@ -170,10 +167,19 @@ public final class CongruenceDomain implements BaseNonRelationalValueDomain<Cong
                     left.offset / right.offset
                 );
             }
-            return new CongruenceDomain(
-                gcd(left.coeff, right.coeff),
-                left.offset / right.offset
-            );
+            return top();
+        }
+        if (operator instanceof RemainderOperator) {
+            if (right.coeff == 0 && right.offset == 0) {
+                return bottom();
+            }
+            if (right.coeff == 0 && divides(right.offset, left.coeff)) {
+                return new CongruenceDomain(
+                    0,
+                    left.offset % right.offset
+                );
+            }
+            return top();
         }
         return top();
     }
