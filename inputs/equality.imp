@@ -1,0 +1,13 @@
+class equality {
+	loop() {
+	    def x = 0;
+	    def y = x;
+	    def z = 2;
+
+	    if (x == y) {
+	        z = x;
+	    } else {
+	        z = y;
+        }
+    }
+}
