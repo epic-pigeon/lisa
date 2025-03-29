@@ -1,6 +1,5 @@
 package it.unive.lisa.tutorial;
 
-import com.ibm.icu.impl.Pair;
 import it.unive.lisa.analysis.ScopeToken;
 import it.unive.lisa.analysis.SemanticException;
 import it.unive.lisa.analysis.SemanticOracle;
@@ -13,15 +12,17 @@ import it.unive.lisa.symbolic.value.operator.binary.ComparisonNe;
 import it.unive.lisa.symbolic.value.operator.unary.LogicalNegation;
 import it.unive.lisa.util.representation.StringRepresentation;
 import it.unive.lisa.util.representation.StructuredRepresentation;
-
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.function.Predicate;
 
 public class EqualityDomain implements ValueDomain<EqualityDomain> {
     public static final EqualityDomain BOTTOM = new EqualityDomain();
+    static {
+        var set = new HashSet<Identifier>();
+        BOTTOM.equalities.add(set);
+    }
     public static final EqualityDomain TOP = new EqualityDomain();
     private final HashSet<HashSet<Identifier>> equalities = new HashSet<>();
 
@@ -159,8 +160,12 @@ public class EqualityDomain implements ValueDomain<EqualityDomain> {
     @Override
     public EqualityDomain forgetIdentifier(Identifier identifier) throws SemanticException {
         var res = new EqualityDomain(this);
-        for (var eq: res.equalities) {
+        for (var it = res.equalities.iterator(); it.hasNext(); ) {
+            var eq = it.next();
             eq.remove(identifier);
+            if (eq.isEmpty()) {
+                it.remove();
+            }
         }
         return res;
     }
