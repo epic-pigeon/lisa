@@ -11,3 +11,22 @@ This repository contains the code developed and used during LiSA's tutorials. Ev
 - Ca' Foscari PhD Course - [[code used]](https://github.com/lisa-analyzer/lisa-tutorial/releases/tag/ssv24)
 
 - Seminar at University of Verona - [[code used]](https://github.com/lisa-analyzer/lisa-tutorial/releases/tag/univr25)
+
+## Implemented classes
+
+### `CongruenceDomain`
+Represents the congruence domain defined in the notes, which denotes
+numbers of the form `aZ + b`, where `a` and `b` are non-negative integers.
+Notably this allows us to represent constants with `0Z + b`. The test
+outputs expected results.
+
+### `EqualityDomain`
+Represents the relational domain of equal variables. It is a set of
+sets of equal variables, for example the knowledge that `x1 = x2 = x3`
+and `x4 = x5 = x6` is represented as `{{x1, x2, x3}, {x4, x5, x6}}`. The
+test outputs expected results.
+
+### `CongruenceEqualityCartesian`
+Represents the cartesian product of the congruence domain and the
+equality domain. It is implemented as a trivial cartesian product of the
+two domains. The test outputs expected results.
